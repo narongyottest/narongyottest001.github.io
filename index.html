@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>i love u</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #111;
+            color: white;
+            font-family: "Courier New", Courier, monospace;
+            perspective: 800px;
+        }
+        #heart-container {
+            transform-style: preserve-3d;
+            animation: rotate 10s infinite linear;
+        }
+        #heart {
+            font-size: 14px;
+            text-align: center;
+            white-space: pre;
+        }
+        @keyframes rotate {
+            from {
+                transform: rotateY(0deg);
+            }
+            to {
+                transform: rotateY(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="heart-container">
+        <div id="heart"></div>
+    </div>
+
+    <script>
+        function drawHeart() {
+            const message = "I love you🤍 ";
+            const heartContainer = document.getElementById("heart");
+            let output = "";
+
+            for (let y = 15; y > -15; y--) {
+                let row = "";
+                for (let x = -30; x < 30; x++) {
+                    const formula = Math.pow(Math.pow(x * 0.04, 2) + Math.pow(y * 0.1, 2) - 1, 3) - Math.pow(x * 0.04, 2) * Math.pow(y * 0.1, 3);
+                    if (formula <= 0) {
+                        row += message[(x - y + Math.floor(Date.now() / 100)) % message.length];
+                    } else {
+                        row += " ";
+                    }
+                }
+                output += row + "\n";
+            }
+            heartContainer.textContent = output;
+        }
+
+        // อัปเดตแอนิเมชันทุก 100 มิลลิวินาที
+        setInterval(drawHeart, 100);
+    </script>
+</body>
+</html>
